@@ -1,0 +1,18 @@
+{% extends 'publications/base.html' %}
+
+{% block title %}Особистий кабінет{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card p-4" style="max-width: 500px; width: 100%;">
+        <h1 class="text-center">Особистий кабінет</h1>
+        <p><strong>Ім'я користувача:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Ім'я:</strong> {{ user.first_name }}</p>
+        <p><strong>Дата реєстрації:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
+
+        <a href="{% url 'password_change' %}" class="btn btn-primary w-100">Змінити пароль</a>
+        <a href="{% url 'publication_list' %}" class="btn btn-secondary w-100 mt-3">Назад до публікацій</a>
+    </div>
+</div>
+{% endblock %}

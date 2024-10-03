@@ -1,0 +1,50 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'publication_list' %}">
+            <img src="{% static 'publications/images/logo.png' %}" alt="Логотип">
+            Літературна бібліотека
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'publication_list' %}">Головна</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <li class="nav-item me-3">
+                        <span class="navbar-text">Вітаємо, <strong>{{ user.username }}</strong>!</span>
+                    </li>
+                    <!-- Вертикальний роздільник -->
+                    <li class="nav-item">
+                        <span class="vr mx-3"></span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Особистий кабінет</a>
+                    </li>
+                    <!-- Вертикальний роздільник -->
+                    <li class="nav-item">
+                        <span class="vr mx-3"></span>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link" style="padding: 0;">Вийти</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Вхід</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Реєстрація</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

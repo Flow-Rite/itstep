@@ -1,0 +1,17 @@
+{% extends 'publications/base.html' %}
+
+{% block title %}Вхід{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card p-4" style="max-width: 400px; width: 100%;">
+        <h1 class="text-center">Вхід</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary w-100">Увійти</button>
+        </form>
+        <a href="{% url 'publication_list' %}" class="btn btn-secondary w-100 mt-3">Повернутися до списку публікацій</a>
+    </div>
+</div>
+{% endblock %}

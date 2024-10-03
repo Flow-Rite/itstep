@@ -1,0 +1,67 @@
+<div class="card mb-4">
+    <div class="card-header">Пошук</div>
+    <div class="card-body">
+        <form method="GET" action="{% url 'publication_list' %}">
+            <!-- Вибір поля для пошуку -->
+            <div class="mb-3">
+                <label for="search_field" class="form-label">Поле для пошуку</label>
+                <select name="search_field" class="form-select">
+                    <option value="title" {% if request.GET.search_field == 'title' %}selected{% endif %}>Назва</option>
+                    <option value="author" {% if request.GET.search_field == 'author' %}selected{% endif %}>Автор</option>
+                    <option value="annotation" {% if request.GET.search_field == 'annotation' %}selected{% endif %}>Анотація</option>
+                    <option value="publication_type" {% if request.GET.search_field == 'publication_type' %}selected{% endif %}>Тип</option>
+                    <option value="publication_year" {% if request.GET.search_field == 'publication_year' %}selected{% endif %}>Рік публікації</option>
+                    <option value="page_count" {% if request.GET.search_field == 'page_count' %}selected{% endif %}>Кількість сторінок</option>
+                </select>
+            </div>
+
+            <!-- Поле для введення значення пошуку -->
+            <div class="mb-3">
+                <label for="q" class="form-label">Значення</label>
+                <input type="text" name="q" class="form-control" placeholder="Введіть значення для пошуку" value="{{ request.GET.q }}">
+            </div>
+
+            <button class="btn btn-primary" type="submit">Пошук</button>
+        </form>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Відображення</div>
+    <div class="card-body">
+        <form method="GET" action="{% url 'publication_list' %}">
+            <!-- Вибір формату відображення -->
+            <div class="mb-3">
+                <label for="view" class="form-label">Формат відображення</label>
+                <select name="view" class="form-select">
+                    <option value="list" {% if view_type == 'list' %}selected{% endif %}>Список</option>
+                    <option value="cards" {% if view_type == 'cards' %}selected{% endif %}>Картки</option>
+                </select>
+            </div>
+
+            <!-- Вибір кількості записів на сторінку -->
+            <div class="mb-3">
+                <label for="per_page" class="form-label">Кількість записів на сторінку</label>
+                <select name="per_page" class="form-select">
+                    <option value="5" {% if per_page == '5' %}selected{% endif %}>5</option>
+                    <option value="10" {% if per_page == '10' %}selected{% endif %}>10</option>
+                    <option value="20" {% if per_page == '20' %}selected{% endif %}>20</option>
+                </select>
+            </div>
+
+            <button class="btn btn-secondary" type="submit">Застосувати</button>
+        </form>
+    </div>
+</div>
+
+<!-- Операції блок -->
+<div class="card mb-4">
+    <div class="card-header">Операції</div>
+    <div class="card-body">
+        {% if user.is_authenticated %}
+            <a href="{% url 'publication_create' %}" class="btn btn-primary">Додати публікацію</a>
+        {% else %}
+            <p>Щоб додати публікацію, <a href="{% url 'login' %}">увійдіть</a> або <a href="{% url 'register' %}">зареєструйтесь</a>.</p>
+        {% endif %}
+    </div>
+</div>

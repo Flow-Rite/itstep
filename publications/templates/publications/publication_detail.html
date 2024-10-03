@@ -1,0 +1,43 @@
+{% extends 'publications/base.html' %}
+{% load static %}
+
+{% block title %}{{ publication.title }}{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="row g-0">
+        <!-- Колонка для обкладинки книги -->
+        <div class="col-md-4">
+            {% if publication.cover_image %}
+                <img src="{{ publication.cover_image.url }}" class="img-fluid rounded-start" alt="Обкладинка {{ publication.title }}">
+            {% else %}
+                <img src="{% static 'publications/images/default_cover.jpg' %}" class="img-fluid rounded-start" alt="Обкладинка не доступна">
+            {% endif %}
+        </div>
+
+        <!-- Колонка для інформації про публікацію -->
+        <div class="col-md-8">
+            <div class="card-body">
+                <h2 class="card-title">{{ publication.title }}</h2>
+                <p class="card-text"><strong>Автор книги:</strong> {{ publication.author }}</p>
+                <p class="card-text"><strong>Анотація:</strong> {{ publication.annotation }}</p>
+                <p class="card-text"><strong>Рік видання:</strong> {{ publication.publication_year }}</p>
+                <p class="card-text"><strong>Кількість сторінок:</strong> {{ publication.page_count }}</p>
+                <p class="card-text"><strong>Тип публікації:</strong> {{ publication.publication_type }}</p>
+                <p class="card-text"><strong>Створено користувачем:</strong> {{ publication.created_by.username }}</p>
+                <p class="card-text"><small class="text-muted">Дата створення: {{ publication.created_at }}</small></p>
+
+                <!-- Контейнер для кнопок -->
+                <div class="mt-4 d-flex justify-content-start align-items-center">
+                    <!-- Кнопки для редагування та видалення публікації, тільки якщо це автор -->
+                    {% if request.user == publication.created_by %}
+                        <a href="{% url 'publication_edit' publication.pk %}" class="btn btn-warning me-2">Редагувати</a>
+                        <a href="{% url 'publication_delete' publication.pk %}" class="btn btn-danger me-2">Видалити</a>
+                    {% endif %}
+                    <a href="{% url 'publication_list' %}" class="btn btn-secondary">Назад до списку</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

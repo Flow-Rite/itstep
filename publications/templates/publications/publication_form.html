@@ -1,0 +1,95 @@
+{% extends 'publications/base.html' %}
+{% load static %}
+
+{% block title %}{% if form.instance.pk %}Редагування{% else %}Створення{% endif %} публікації{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Редагування{% else %}Створення{% endif %} публікації</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Назва публікації -->
+    <div class="mb-3">
+        <label for="id_title" class="form-label">Назва публікації</label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="invalid-feedback">
+                {{ form.title.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Автор -->
+    <div class="mb-3">
+        <label for="id_author" class="form-label">Автор</label>
+        {{ form.author }}
+        {% if form.author.errors %}
+            <div class="invalid-feedback">
+                {{ form.author.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Анотація -->
+    <div class="mb-3">
+        <label for="id_annotation" class="form-label">Анотація</label>
+        {{ form.annotation }}
+        {% if form.annotation.errors %}
+            <div class="invalid-feedback">
+                {{ form.annotation.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Рік публікації -->
+    <div class="mb-3">
+        <label for="id_publication_year" class="form-label">Рік публікації</label>
+        {{ form.publication_year }}
+        {% if form.publication_year.errors %}
+            <div class="invalid-feedback">
+                {{ form.publication_year.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Кількість сторінок -->
+    <div class="mb-3">
+        <label for="id_page_count" class="form-label">Кількість сторінок</label>
+        {{ form.page_count }}
+        {% if form.page_count.errors %}
+            <div class="invalid-feedback">
+                {{ form.page_count.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Тип публікації -->
+    <div class="mb-3">
+        <label for="id_publication_type" class="form-label">Тип публікації</label>
+        {{ form.publication_type }}
+        {% if form.publication_type.errors %}
+            <div class="invalid-feedback">
+                {{ form.publication_type.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Обкладинка -->
+    <div class="mb-3">
+        <label for="id_cover_image" class="form-label">Обкладинка</label>
+        {{ form.cover_image }}
+        {% if form.cover_image.errors %}
+            <div class="invalid-feedback">
+                {{ form.cover_image.errors }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Кнопки -->
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Оновити{% else %}Створити{% endif %}</button>
+        <!-- Кнопка "Скасувати" -->
+        <a href="{% url 'publication_list' %}" class="btn btn-secondary">Скасувати</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'publications/base.html' %}
+{% load static %}
+
+{% block title %}Підтвердження видалення{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card p-4" style="max-width: 500px; width: 100%;">
+        <h2 class="text-center">Підтвердження видалення</h2>
+        <p class="text-center">Ви впевнені, що хочете видалити публікацію "<strong>{{ publication.title }}</strong>"?</p>
+        <div class="text-center">
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Видалити</button>
+                <a href="{% url 'publication_detail' publication.pk %}" class="btn btn-secondary">Скасувати</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
